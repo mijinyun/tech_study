@@ -19,7 +19,13 @@
 
     function increase() {
         count += 1;
-        numbers = [...numbers,count];
+        numbers.push(count);
+        numbers = [...numbers];
+        // numbers = [...numbers,count]; // 위 두줄은 이 한줄을 통해서 .set 처리와 동시에 push도 하는셈!
+
+        // ' = ' 이라는 것은 ' .set = '를 의미한다.
+        // svelte에서는 set을 통해 값을 덮어쓰는 방식인데 단지 numbers.push()로만 사용할 경우, 배열에는 추가되지만 set을 해준 것이 아니기 때문에 set을 통한 call이 이뤄지지 않는 것. 그렇기때문에 업데이트가 되지않는 것
+        // 즉, numbers = ~ 과정을 통해서 .set을 해주면 업데이트가 되는 것!!
     }
     function descrease(){
         count >=1 ? count -= 1 : count = 0;
