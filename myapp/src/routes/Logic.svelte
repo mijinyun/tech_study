@@ -1,4 +1,5 @@
 <script>
+	import { error } from "@sveltejs/kit";
 	import Thing from "./Thing.svelte";
 
     let user = { loggedIn : false };
@@ -32,6 +33,25 @@
         things = [...things.slice(1)];
     }
 
+
+    // Await blocks
+    let promise = getRandomNumber();
+    function handleRandomNumber () {
+        promise = getRandomNumber();
+    }
+    async function getRandomNumber() {
+        const res = await fetch('https://svelte.dev/tutorial/random-number')
+        const text = await res.text();
+        
+        console.log('res:' , res);
+        console.log('text:', text);
+        if (res.ok) {
+            return text;
+        }else {
+            // throw new Error(text);
+            throw new Error('error!!!!');
+        }
+    }
 
 </script>
 
@@ -95,6 +115,17 @@
 
 <!-- Keyed each blocks -->
 <button on:click={removeFirst}>Remove first thing</button>
-{#each things as thing}
+{#each things as thing (thing.id) }
     <Thing name={thing.name}/>
 {/each}
+
+
+<!-- Await blocks -->
+<button on:click={handleRandomNumber}>generate random number</button>
+{#await promise}
+    <p>...waiting</p>
+{:then number}
+    <p>The number is {number}</p>
+{:catch error}
+    <p style="color:red">{error.message}</p>
+{/await}
