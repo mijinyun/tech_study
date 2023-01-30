@@ -1,5 +1,6 @@
 <script>
-	import Introduce from "./Introduce.svelte";
+	import Events from "./Events.svelte";
+import Introduce from "./Introduce.svelte";
 	import Logic from "./Logic.svelte";
 	import Props from "./Props.svelte";
 	import Reactivity from "./Reactivity.svelte";
@@ -8,4 +9,5 @@
 <!-- <Introduce /> -->
 <!-- <Reactivity /> -->
 <!-- <Props /> -->
-<Logic />
+<!-- <Logic /> -->
+<Events />
