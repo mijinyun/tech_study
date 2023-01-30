@@ -43,8 +43,6 @@
         const res = await fetch('https://svelte.dev/tutorial/random-number')
         const text = await res.text();
         
-        console.log('res:' , res);
-        console.log('text:', text);
         if (res.ok) {
             return text;
         }else {
@@ -117,6 +115,9 @@
 <button on:click={removeFirst}>Remove first thing</button>
 {#each things as thing (thing.id) }
     <Thing name={thing.name}/>
+    <!-- {console.log('in each',thing)} -->
+    <!-- {(console.log('in each2', thing), '')} -->
+    <!-- {(console.log('in each3', thing))} -->
 {/each}
 
 
