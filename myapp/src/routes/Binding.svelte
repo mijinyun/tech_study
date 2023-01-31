@@ -1,5 +1,6 @@
 <script>
     import { marked } from 'marked';
+	import Keypad from './Keypad.svelte';
     let name = 'world';
 
     let a = 1;
@@ -55,6 +56,16 @@
         todos = todos.filter(todo => !todo.done)
     }
     $: remaining = todos.filter(v => !v.done).length;
+
+
+
+    //Component bindings
+    let pin;
+    $: view = pin ? pin.replace(/[0-9]/g,'*') : `enter your pin`;
+
+    function submit () {
+        alert(`Setting your pin number : ${pin}`);
+    }
 
 </script>
 
@@ -188,3 +199,10 @@
 <div>{remaining} remaining.</div>
 <button on:click={add}>Add new</button>
 <button on:click={clear}>Clear completed</button>
+
+<hr>
+
+<!-- Component bindings -->
+
+<h1>{view}</h1>
+<Keypad bind:value={pin} on:submit={submit}/>
