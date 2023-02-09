@@ -1,4 +1,4 @@
-import { writable } from "svelte/store";
+import { writable, derived } from "svelte/store";
 
 function createCount() {
     const { subscribe, set, update } = writable(0);
@@ -16,3 +16,4 @@ function createCount() {
 }
 
 export const count = createCount();
+export const doubled = derived(count, $count => $count * 2);
