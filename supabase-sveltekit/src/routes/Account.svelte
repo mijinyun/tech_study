@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { supabase } from '$lib/supabaseClient'
+    import Avatar from "./Avatar.svelte";
 
     export let session
 
@@ -80,6 +81,12 @@
     }
 
 </script>
+
+<form use:getProfile class="form-widget" on:submit|preventDefault="{updateProfile}">
+
+    <Avatar bind:url="{avatarUrl}" size="{10}" on:upload="{updateProfile}" />
+</form>
+
 
 <form class="form-widget" on:submit|preventDefault="{updateProfile}">
 
