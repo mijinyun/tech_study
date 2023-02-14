@@ -66,7 +66,7 @@
     <div class="avatar no-image" style="height:{size}em; width: {size}em;" />
 {/if}
 
-<div style="width: {size}em;">
+<div style="width: {size}em;" >
     <label class="button primary block" for="single">
         {uploading ? 'Uploading..' : 'Upload'}
     </label>

@@ -1,6 +1,8 @@
 <script>
+    import { page } from "$app/stores";
     import { tick } from "svelte";
 
+    $: console.log('page:',$page);
     let a = 1;
     let b = 2;
     let sumElement;

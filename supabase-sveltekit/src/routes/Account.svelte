@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import { supabase } from '$lib/supabaseClient'
     import Avatar from "./Avatar.svelte";
+    import { goto } from "$app/navigation";
 
     export let session
 
@@ -42,21 +43,23 @@
     }
 
     const updateProfile = async () => {
+
         try {
             loading = true
             const { user } = session
 
             const updates = {
                 id: user.id,
-                username,
-                website,
+                username: username,
+                website: website,
                 avatar_url: avatarUrl,
                 updated_at: new Date(),
             }
-
+            
             let { error } = await supabase
                 .from('profiles')
                 .upsert(updates)
+                .select()
 
             if (error) throw error
         } catch (error) {
@@ -80,15 +83,28 @@
         }
     }
 
+    const GoTodo = async () => {
+        goto('/todos');
+    }
+
 </script>
 
-<form use:getProfile class="form-widget" on:submit|preventDefault="{updateProfile}">
-
-    <Avatar bind:url="{avatarUrl}" size="{10}" on:upload="{updateProfile}" />
+<form 
+    use:getProfile 
+    class="form-widget" 
+    on:submit|preventDefault="{updateProfile}"
+    >
+    <div class="sample">
+        <Avatar 
+            bind:url="{avatarUrl}" 
+            size="{10}" 
+            on:upload="{updateProfile}"
+            />
+    </div>
 </form>
 
 
-<form class="form-widget" on:submit|preventDefault="{updateProfile}">
+<form class="form-widget" on:submit|preventDefault="{updateProfile}" >
 
     <!-- email -->
     <div>
@@ -99,7 +115,7 @@
     <!-- username -->
     <div>
         <label for="username">Name</label>
-        <input id="usename" type="text" bind:value="{username}"/>
+        <input id="usename" type="text" required placeholder="" bind:value="{username}"/>
     </div>
 
     <!-- website -->
@@ -113,6 +129,18 @@
     </div>
 
     <div>
-        <buttom class="button block" on:click="{signOut}" disabled="{loading}">Sign Out</buttom>
+        <button class="button block" on:click="{signOut}" disabled="{loading}">Sign Out</button>
+    </div>
+
+    <div>
+        <button class="button block" on:click={GoTodo} value="Go To TodoList">Go to TodoList</button>
     </div>
 </form>
+
+<style>
+    .sample {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
