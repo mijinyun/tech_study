@@ -29,7 +29,7 @@
         try {
             uploading = true;
 
-            console.log('files:',files[0])
+            // console.log('files:',files[0])
             if (!files || files.length === 0){
                 throw new Error('You must select on image to upload.')
             }
