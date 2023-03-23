@@ -5,4 +5,9 @@
     <h3>{smoothie.title}</h3>
     <p>{smoothie.method}</p>
     <div class="rating">{smoothie.rating}</div>
+    <div class="buttons">
+        <a href="/{smoothie.id}">
+            <i class="material-icons">edit</i>
+        </a>
+    </div>
 </div>
