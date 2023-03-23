@@ -26,6 +26,12 @@
         }
     }
 
+    const handleDelete = (id) => {
+        result = [...result].filter((data) => {
+            return data.id != id
+        })
+    }
+
 </script>
 
 <div class="page home">
@@ -33,7 +39,10 @@
     <div class="smoothies">
         <div class="smoothie-grid">
             {#each result as smoothie}
-            <SmoothieCard {smoothie} />
+            <SmoothieCard 
+            key={smoothie.id}
+            {smoothie}
+            onDelete={handleDelete} />
             {/each}
         </div>
     </div>
